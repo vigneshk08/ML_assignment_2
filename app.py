@@ -60,7 +60,7 @@ with open(train_path, "rb") as file:
 # Upload and evaluate — replaces the above container when used
 st.markdown("---")
 st.subheader("Upload test CSV (only test data)")
-uploaded_file = st.file_uploader("Choose a CSV test file to upload", type=["csv"])
+uploaded_file = st.file_uploader("Choose a CSV test file to upload", type=["csv"], key="csv_uploader")
 
 st.markdown("---")
 
@@ -92,7 +92,7 @@ def compute_metrics(y_true, y_pred, y_prob=None):
 
 if uploaded_file is not None:
     try:
-        test_df = pd.read_csv(uploaded_file)
+        test_df = pd.read_csv(uploaded_file, encoding='utf-8')
         
         # Display file info first
         with eval_container:
@@ -151,3 +151,5 @@ if uploaded_file is None:
         fig, ax = plt.subplots()
         sns.heatmap(cm, annot=True, fmt="d", cmap="Blues", ax=ax)
         st.pyplot(fig)
+
+
